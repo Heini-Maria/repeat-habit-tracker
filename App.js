@@ -14,13 +14,15 @@ export default function App() {
   registerNNPushToken(5638, 'RspELd7m7YAUK1aICdo8W4');
 
   // globalstate management
-  const [habitList, setHabitList] = useState([{id: 1, habit: 'meditate'}]);
+  const [habitList, setHabitList] = useState([{id: 1, habit: 'meditate', times: 0, goal: 3, completed: false}]);
   const [habit, setHabit] = useState('');
+  const [goal, setGoal] = useState('');
   const [chosenHabit, setChosenHabit] = useState('');
 
   const GlobalState = {
     habitList, setHabitList,
     habit, setHabit,
+    goal, setGoal,
     chosenHabit, setChosenHabit
   }
 
