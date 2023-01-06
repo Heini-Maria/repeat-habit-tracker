@@ -11,7 +11,8 @@ export default function ChosenHabit ({ navigation, GlobalState }) {
         <View style={styles.screen}>
             <Header />
             <View style={styles.body}>
-                <Text>{chosenHabit.habit}</Text>
+                <Text style={styles.habitText}
+                >{chosenHabit.habit}</Text>
             </View>
             <Footer navigation={navigation} />
         </View>
@@ -23,6 +24,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    habitText: {
+        fontFamily: 'Amaranth',
+        fontSize: 20
     },
     body: {
         flex: 8,

@@ -1,31 +1,59 @@
 import React, { useEffect, useState, useRef } from "react"
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, FlatList, Switch} from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, FlatList, Switch, Image} from 'react-native';
+import Modal from 'react-native-modal';
 import SelectDropdown from "react-native-select-dropdown";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import ChosenHabit from "./ChosenHabit";
 
 export default function Home ({ navigation, GlobalState }) {
-    const {habitList, setHabitList, habit, setHabit, setChosenHabit, goal, setGoal} = GlobalState;
+    const {habitList, setHabitList, habit, setHabit, chosenHabit, setChosenHabit, goal, setGoal} = GlobalState;
     const goals = ['1', '2', '3'];
     const dropdownRef = useRef();
+    const [isVisible, setIsVisible] = useState(false);
 
-/*     useEffect(() => {
-        setHabitList(prevState => [...prevState, {habitList}])
-    }, []) */
+    
+    
+    function handleDelete (item) {
+        const index = habitList.indexOf(item);
+        habitList.splice(index, 1);
+        setHabitList([...habitList]);
+    }
+    const handleCheck = (item) => {
+        item.times += 1;
+        setHabitList([...habitList]);
+        }
 
     const renderItem = ({ item}) => {
+        
         return (
+        <View style={styles.habit}>
         <TouchableOpacity
-            style={styles.habit}
+            
             onPress={() => handleChooseHabit(item)}
         >
-            <Text>{item.habit} {item.times} / {item.goal}</Text>
-        </TouchableOpacity>
+            <Text
+             style={styles.habitText}   
+            >{item.habit} {item.times} / {item.goal}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handleCheck(item)}>
+                <FontAwesome name='check' color={'#ABC270'} size={30}/>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handleDelete(item)}>
+                <FontAwesome name='trash' color={'#463C33'} size={25}/>
+            </TouchableOpacity>
+            </View>
         )
     }
+
+    const renderForm  = () => {
+        setIsVisible(!isVisible);
+    }
+        
+
 
     const handleSaveHabit = () => {
         const index = habitList.length + 1;
@@ -34,7 +62,10 @@ export default function Home ({ navigation, GlobalState }) {
         setHabit('');
         setGoal('');
         dropdownRef.current.reset();
+        setIsVisible(!isVisible);
         console.log(habitList);
+    } else if (habit === '' && goal === ''){
+        setIsVisible(!isVisible);
     } else {
         alert('name the habit and set your goal');
     }
@@ -48,8 +79,16 @@ export default function Home ({ navigation, GlobalState }) {
     return (
         <View style={styles.screen}>
             <Header />
-            <View style={styles.inputs} >
-            <TextInput
+            <View style={styles.body}>
+                <FlatList 
+                    data={habitList}
+                    renderItem={renderItem}
+                    keyExtractor={item => item.id}
+                />
+            </View>
+           <View style={styles.inputs} >
+                <Modal isVisible={isVisible} >        
+                <TextInput
                     style={styles.input}
                     onChangeText={setHabit}
                     value={habit}
@@ -69,20 +108,22 @@ export default function Home ({ navigation, GlobalState }) {
                         return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#463C33'} size={12} />;
                       }}
                 />
-            </View>
-            <View style={styles.body}>
                 <TouchableOpacity
                     style={styles.button}
                     onPress={handleSaveHabit}
                 >
-                    <Text style={styles.buttonText}>+ Add Habit</Text>
+                    <FontAwesome name= 'plus' color={'#F3F3F4'} size={20} />
                 </TouchableOpacity>
-                <FlatList 
-                    data={habitList}
-                    renderItem={renderItem}
-                    keyExtractor={item => item.id}
-                />
-            </View>
+                </Modal>
+                </View> 
+            <View style={styles.addHabit}>    
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={renderForm}
+                >
+                    <FontAwesome name= 'plus' color={'#F3F3F4'} size={20} />
+                </TouchableOpacity>
+            </View> 
             <Footer navigation={navigation} />
         </View>
     )
@@ -95,59 +136,69 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     body: {
-        flex: 8.5,
+        flex: 7,
         width: '100%',
-        backgroundColor: '#F3F3F4',
+        paddingTop: 30,
+        backgroundColor: '#F3F3F4',   
     },
     habit: {
         backgroundColor: 'white',
+        flexDirection: 'row',
+        height: 60,
         padding: 10,
+        paddingRight: 30,
         margin: 10,
-        borderRadius: 12,
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+    habitText: {
+        fontFamily: 'Amaranth',
+        fontSize: 16
+    },
+    addHabit: {
+        flex: 1,
+        display: 'block',
+        width: '100%',
+        padding: 15,
+        backgroundColor: '#F3F3F4',
+        alignItems: "flex-end"
     },
     inputs: {
-        flex: 1.5,
+        flex: 3,
         width: '100%',
         backgroundColor: '#F3F3F4',
         padding: 15,
-        alignItems: 'flex-start',
+        flexWrap: 'wrap'
+
     },
     input: {
-        flex: 1,
         backgroundColor: 'white',
         marginBottom: 10,
         padding: 15,
-        height: '3%',
         width: '90%',
         borderRadius: 12,
+        fontFamily: 'Amaranth',
     },
     dropdown: {
-        flex: 1,
         backgroundColor: 'white',
-        heigth: '3%',
-        width: '30%',
+        width: '40%',
         padding: 15,
         borderRadius: 12,
     },
     dropdownText: {
         color: '#463C33',
         fontSize: 12,
+        fontFamily: 'Amaranth',
         textAlign: 'left',
     },
     button: {
-        backgroundColor: '#463C33',
+        backgroundColor: '#FDA769',
+        height: 50,
+        width: 50,
+        marginRight: 40,
         padding: 15,
-        paddingTop: 10,
-        paddingBottom: 10,
-        margin: 10,
-        marginBottom: 30,
-        borderRadius: 12,
+        borderRadius: '50%',
         alignItems: 'center',
-        border: '1px solid red',
+        alignSelf: 'flex-end'  
     },
-    buttonText: {
-        color: 'white'
-    }
-
-  
 })
