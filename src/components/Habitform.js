@@ -34,12 +34,13 @@ export default function Habitform ({ GlobalState, isVisible, setIsVisible }) {
            <View style={styles.inputs}  >
                 <Modal isVisible={isVisible}
                       style={styles.modal}  >
-                <Text style={styles.text}>Create a new habit and set your goal of repetitions per selected timeframe.</Text>
+                <Text style={styles.text}>Create a new habit, set your goal and select timeframe.</Text>
                 <TextInput
                     style={styles.input}
                     onChangeText={setHabit}
                     value={habit}
                     placeholder= "habit to add..."
+                    maxLength={20}
                 />
                 <SelectDropdown
                     data= {goals}
@@ -92,20 +93,24 @@ const styles = StyleSheet.create({
     text: {
         fontFamily: 'Inter',
         marginBottom: 20,
-        fontSize: 18,
-        textAlign: 'left'
+        fontSize: 20,
+        textAlign: 'left',
+        padding: 10,
+        color: '#463C33',
+        backgroundColor: 'rgba(156,191,223, 0.9)'
      
     },
     input: {
         backgroundColor: 'white',
         padding: 15,
+        fontSize: 16,
         width: '90%',
         borderRadius: 12,
         fontFamily: 'Amaranth',
     },
     dropdown: {
         backgroundColor: 'white',
-        width: '40%',
+        width: '45%',
         display: 'inline-block',
         marginTop: 10,
         padding: 15,

@@ -19,10 +19,20 @@ const styles = StyleSheet.create({
         justifyContent: 'flext start',
         backgroundColor: '#9CBFDF',
         paddingTop: Constants.StatusBarHeight ,
+        paddingBottom: 10,
         zIndex: 5,
         flexWrap: 'wrap',
-        flexDirection: 'row'   
-    },
+        flexDirection: 'row',
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+
+        elevation: 5,   
+            },
     text: {
         fontSize: 20,
         fontFamily: 'Anton',

@@ -78,6 +78,15 @@ const styles = StyleSheet.create({
         padding: 15,
         borderRadius: '50%',
         alignItems: 'center',
-        alignSelf: 'flex-end'  
+        alignSelf: 'flex-end',
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+
+        elevation: 5,  
     },
 })
