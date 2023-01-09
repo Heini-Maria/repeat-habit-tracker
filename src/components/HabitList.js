@@ -10,6 +10,7 @@ export default function HabitList ({ navigation, GlobalState }) {
         chosenHabit, setChosenHabit, 
         goal, setGoal,
         frequency, setFrequency,
+        completed, setCompleted,
         isVisible, setIsVisible
     } = GlobalState;
      
@@ -20,11 +21,20 @@ export default function HabitList ({ navigation, GlobalState }) {
         setHabitList([...habitList]);
     }
     const handleCheck = (item) => {
-        if(item.times < item.goal){
+        const goal = parseInt(item.goal);
+        const times = parseInt(item.times);
+        const complete = parseInt(item.goal) -1;
+        if(times === complete) {
+            item.completed = true;
+            item.times += 1;
+            setHabitList([...habitList]);
+        }
+        else if(times < goal){
+        item.completed = false;
         item.times += 1;
         setHabitList([...habitList]);
         } else {
-            alert('Completed!')
+            item.completed = false;
             item.times = 0;
             setHabitList([...habitList]);
         }
@@ -40,14 +50,18 @@ export default function HabitList ({ navigation, GlobalState }) {
         >
             <Text
              style={styles.habitText}   
-            >{item.habit} {item.times} / {item.goal} per {item.frequency}</Text>
+            >{item.habit} </Text>
+            
+            {item.completed ? <Text style ={styles.completed}>Completed</Text> : <Text style ={styles.habitGoal}>{item.times} / {item.goal} per {item.frequency}</Text>}
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => handleCheck(item)}>
-                <FontAwesome name='check' color={'#ABC270'} size={30}/>
+            <View style={styles.icons}>
+            <TouchableOpacity style={styles.check} onPress={() => handleCheck(item)} >
+                <FontAwesome name='check' color={'#ABC270'} size={30} />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => handleDelete(item)}>
                 <FontAwesome name='trash' color={'#463C33'} size={25}/>
             </TouchableOpacity>
+            </View>
             </View>
         )
     }
@@ -88,8 +102,27 @@ elevation: 4,
     },
     habitText: {
         fontFamily: 'Amaranth',
+        fontSize: 18,
+        color: '#463C33',
+    },
+    habitGoal: {
+        fontFamily: 'Inter',
         fontSize: 16,
         color: '#463C33',
+        marginTop: 5
+    },
+    completed: {
+        fontFamily: 'Inter',
+        fontSize: 16,
+        color: '#FDA769',
+        marginTop: 5 
+    },
+    icons: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    check: {
+        marginRight: 20,
     },
     button: {
         backgroundColor: '#FDA769',

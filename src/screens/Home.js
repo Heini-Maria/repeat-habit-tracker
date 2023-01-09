@@ -15,6 +15,7 @@ export default function Home ({ navigation, GlobalState }) {
         chosenHabit, setChosenHabit, 
         goal, setGoal,
         frequency, setFrequency,
+        completed, setCompleted,
         isVisible, setIsVisible
     } = GlobalState;
     

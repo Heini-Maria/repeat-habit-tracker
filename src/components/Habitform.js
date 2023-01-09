@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, TextInput, TouchableOpacity, FlatList, Switch, 
 import Modal from 'react-native-modal';
 import SelectDropdown from "react-native-select-dropdown";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 export default function Habitform ({ GlobalState, isVisible, setIsVisible }) {
@@ -11,18 +12,16 @@ export default function Habitform ({ GlobalState, isVisible, setIsVisible }) {
     const per = ['day', 'week', 'month']
     const dropdownRef = useRef();
     const [habitError, setHabitError] = useState('');
-   
+
     const handleChange = (input) => {
         setHabit(input);
         setHabitError('');
     }
-
+   
     const handleSaveHabit = () => {
         const index = habitList.length + 1;
         const regex = /^[a-zA-z]+$/;
-        let isValid = regex.test(habit)
-        console.warn(isValid);
-        
+        let isValid = regex.test(habit);
         if(isValid && habit !== '' && goal !== '' && frequency !== '') {
         setHabitList(prevState => [...prevState, {id: index, habit: habit, times: 0, goal: goal, frequency: frequency, completed: false}]);
         setHabit('');

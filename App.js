@@ -27,6 +27,7 @@ export default function App() {
   const [habit, setHabit] = useState('');
   const [goal, setGoal] = useState('');
   const [frequency, setFrequency] = useState('');
+  const [completed, setCompleted] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [chosenHabit, setChosenHabit] = useState('');
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -37,6 +38,7 @@ export default function App() {
     habit, setHabit,
     goal, setGoal,
     frequency, setFrequency,
+    completed, setCompleted,
     isVisible, setIsVisible,
     chosenHabit, setChosenHabit,
     fontsLoaded, setFontsLoaded,
