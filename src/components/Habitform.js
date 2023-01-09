@@ -10,23 +10,34 @@ export default function Habitform ({ GlobalState, isVisible, setIsVisible }) {
     const goals = ['1', '2', '3', '4', '5', '6', '7'];
     const per = ['day', 'week', 'month']
     const dropdownRef = useRef();
+    const [habitError, setHabitError] = useState('');
    
-
+    const handleChange = (input) => {
+        setHabit(input);
+        setHabitError('');
+    }
 
     const handleSaveHabit = () => {
         const index = habitList.length + 1;
-        if(habit !== '' && goal !== '' && frequency !== '') {
+        const regex = /^[a-zA-z]+$/;
+        let isValid = regex.test(habit)
+        console.warn(isValid);
+        
+        if(isValid && habit !== '' && goal !== '' && frequency !== '') {
         setHabitList(prevState => [...prevState, {id: index, habit: habit, times: 0, goal: goal, frequency: frequency, completed: false}]);
         setHabit('');
         setGoal('');
         setFrequency('')
         dropdownRef.current.reset();
         setIsVisible(!isVisible);
+        setHabitError('');
         console.log(habitList);
     } else if (habit === '' && goal === ''){
         setIsVisible(!isVisible);
+    } else if (habit !== '' && !isValid) {
+        setHabitError('Habit should contain only letters!');
     } else {
-        alert('name the habit and set your goal');
+        setHabitError('Please fill all fields below');
     }
     }
 
@@ -34,11 +45,12 @@ export default function Habitform ({ GlobalState, isVisible, setIsVisible }) {
            <View style={styles.inputs}  >
                 <Modal isVisible={isVisible}
                       style={styles.modal}  >
-                <Text style={styles.text}>Create a new habit, set your goal and select timeframe.</Text>
+                <Text style={styles.error}>{habitError}</Text>
                 <TextInput
                     style={styles.input}
-                    onChangeText={setHabit}
+                    onChangeText={handleChange}
                     value={habit}
+                    keyboardType= 'email-address'
                     placeholder= "habit to add..."
                     maxLength={20}
                 />
@@ -59,7 +71,7 @@ export default function Habitform ({ GlobalState, isVisible, setIsVisible }) {
                 <SelectDropdown
                     data= {per}
                     ref= {dropdownRef}
-                    defaultButtonText= {'select per ...'}
+                    defaultButtonText= {'select timeframe'}
                     buttonTextStyle ={styles.dropdownText}
                     buttonStyle={styles.dropdown}
                     onSelect={(selectedItem, index) => {
@@ -70,7 +82,6 @@ export default function Habitform ({ GlobalState, isVisible, setIsVisible }) {
                         return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#463C33'} size={12} />;
                       }}
                 />
-                
                 <TouchableOpacity
                     style={styles.button}
                     onPress={handleSaveHabit}
@@ -132,5 +143,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignSelf: 'flex-end'  
     },
+    error: {
+        color: 'tomato', 
+        marginLeft: 10, 
+        marginBottom: 5,
+        fontFamily: 'Inter',
+        fontSize: 18,
+    }
 
 })
