@@ -4,6 +4,8 @@ import Modal from 'react-native-modal';
 import SelectDropdown from "react-native-select-dropdown";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import uuid from 'react-native-uuid';
+
 
 
 export default function Habitform ({ GlobalState, isVisible, setIsVisible }) {
@@ -17,20 +19,23 @@ export default function Habitform ({ GlobalState, isVisible, setIsVisible }) {
         setHabit(input);
         setHabitError('');
     }
-   
-    const handleSaveHabit = () => {
-        const index = habitList.length + 1;
+    
+    const handleSaveHabit = async () => {
+        const id = uuid.v1();
         const regex = /^[a-zA-z]+$/;
         let isValid = regex.test(habit);
-        if(isValid && habit !== '' && goal !== '' && frequency !== '') {
-        setHabitList(prevState => [...prevState, {id: index, habit: habit, times: 0, goal: goal, frequency: frequency, completed: false}]);
-        setHabit('');
-        setGoal('');
-        setFrequency('')
-        dropdownRef.current.reset();
-        setIsVisible(!isVisible);
-        setHabitError('');
-        console.log(habitList);
+        if(isValid && goal !== '' && frequency !== '') {
+        const newhabits = [ ...habitList, {id: id, habit: habit, times: 0, goal: goal, frequency: frequency, completed: false}]    
+        AsyncStorage.setItem("habits", JSON.stringify(newhabits)).then(() => {
+            setHabitList(newhabits);
+            setHabit('');
+            setGoal('');
+            setFrequency('')
+            dropdownRef.current.reset();
+            setIsVisible(!isVisible);
+            setHabitError('');
+        });
+        
     } else if (habit === '' && goal === ''){
         setIsVisible(!isVisible);
     } else if (habit !== '' && !isValid) {
@@ -60,7 +65,6 @@ export default function Habitform ({ GlobalState, isVisible, setIsVisible }) {
                     buttonTextStyle ={styles.dropdownText}
                     buttonStyle={styles.dropdown}
                     onSelect={(selectedItem, index) => {
-                        console.log(selectedItem, index);
                         setGoal(selectedItem);
                     }}
                     renderDropdownIcon={isOpened => {

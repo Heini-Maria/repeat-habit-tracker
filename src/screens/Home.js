@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, TouchableOpacity, FlatList} from 'react-native'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 
+
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ChosenHabit from "./ChosenHabit";
@@ -19,7 +20,6 @@ export default function Home ({ navigation, GlobalState }) {
         isVisible, setIsVisible
     } = GlobalState;
     
-
     const renderForm  = () => {
         setIsVisible(!isVisible);
     }

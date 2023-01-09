@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react"
 import { StyleSheet, View, Text, TouchableOpacity, FlatList} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import ChosenHabit from "../screens/ChosenHabit";
 
@@ -17,9 +18,13 @@ export default function HabitList ({ navigation, GlobalState }) {
     
     function handleDelete (item) {
         const index = habitList.indexOf(item);
+        console.log(index);
         habitList.splice(index, 1);
-        setHabitList([...habitList]);
-    }
+        const newHabits = [...habitList]
+        AsyncStorage.setItem("habits", JSON.stringify(newHabits)).then(() => {
+        setHabitList(newHabits);
+    })
+}
     const handleCheck = (item) => {
         const goal = parseInt(item.goal);
         const times = parseInt(item.times);
@@ -28,7 +33,7 @@ export default function HabitList ({ navigation, GlobalState }) {
             item.completed = true;
             item.times += 1;
             setHabitList([...habitList]);
-        }
+    }
         else if(times < goal){
         item.completed = false;
         item.times += 1;
@@ -38,10 +43,10 @@ export default function HabitList ({ navigation, GlobalState }) {
             item.times = 0;
             setHabitList([...habitList]);
         }
+        AsyncStorage.setItem("habits", JSON.stringify(habitList));
         }
 
     const renderItem = ({ item}) => {
-        
         return (
         <View style={styles.habit}>
         <TouchableOpacity

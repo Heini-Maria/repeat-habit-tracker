@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import registerNNPushToken from 'native-notify';
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import Home from './src/screens/Home';
 import ChosenHabit from './src/screens/ChosenHabit';
@@ -19,11 +20,14 @@ const getFonts = () => Font.loadAsync({
 
 
 export default function App() {
+ 
   //push notifications
   registerNNPushToken(5638, 'RspELd7m7YAUK1aICdo8W4');
 
+
   // globalstate management
-  const [habitList, setHabitList] = useState([{id: 1, habit: 'meditate', times: 0, goal: 3, frequency:'day', completed: false}]);
+  const [habitList, setHabitList] = useState('');
+  const [value, setValue] = useState('')
   const [habit, setHabit] = useState('');
   const [goal, setGoal] = useState('');
   const [frequency, setFrequency] = useState('');
@@ -31,6 +35,28 @@ export default function App() {
   const [isVisible, setIsVisible] = useState(false);
   const [chosenHabit, setChosenHabit] = useState('');
   const [fontsLoaded, setFontsLoaded] = useState(false);
+
+
+  const getHabitList = () => {
+    AsyncStorage.getItem('habits').then(data => {
+      if(data !== null) {
+        setHabitList(JSON.parse(data))
+      }
+    }).catch((error) => console.log(error));
+  }
+
+  useEffect (() => {
+    getHabitList();
+  }, []);
+
+    console.warn(habitList);
+  
+  
+
+ 
+ 
+  
+
 
 
   const GlobalState = {
@@ -67,6 +93,8 @@ export default function App() {
     onFinish={()=> setFontsLoaded(true)}
     onError={(err) => console.log(err)}
   />
+  
+ 
   )
 }
 }
