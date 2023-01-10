@@ -17,7 +17,7 @@ export default function Footer({ navigation }) {
 
 const styles = StyleSheet.create({
     footer: {
-        flex: 1,
+        flex: 2,
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',

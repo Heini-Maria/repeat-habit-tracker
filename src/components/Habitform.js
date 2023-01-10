@@ -22,10 +22,20 @@ export default function Habitform ({ GlobalState, isVisible, setIsVisible }) {
     
     const handleSaveHabit = async () => {
         const id = uuid.v1();
-        const regex = /^[a-zA-z]+$/;
+        let startDate = Date.now();
+        const regex = /^[a-zA-z\s]+$/;
         let isValid = regex.test(habit);
         if(isValid && goal !== '' && frequency !== '') {
-        const newhabits = [ ...habitList, {id: id, habit: habit, times: 0, goal: goal, frequency: frequency, completed: false}]    
+        const newhabits = [ ...habitList, {
+            id: id, 
+            habit: habit, 
+            times: 0, 
+            goal: goal, 
+            frequency: frequency, 
+            completed: false,
+            completedCount: 0,
+            created: startDate,
+        }]    
         AsyncStorage.setItem("habits", JSON.stringify(newhabits)).then(() => {
             setHabitList(newhabits);
             setHabit('');
@@ -64,7 +74,7 @@ export default function Habitform ({ GlobalState, isVisible, setIsVisible }) {
                     defaultButtonText= {'select # of times'}
                     buttonTextStyle ={styles.dropdownText}
                     buttonStyle={styles.dropdown}
-                    onSelect={(selectedItem, index) => {
+                    onSelect={(selectedItem) => {
                         setGoal(selectedItem);
                     }}
                     renderDropdownIcon={isOpened => {
@@ -77,8 +87,7 @@ export default function Habitform ({ GlobalState, isVisible, setIsVisible }) {
                     defaultButtonText= {'select timeframe'}
                     buttonTextStyle ={styles.dropdownText}
                     buttonStyle={styles.dropdown}
-                    onSelect={(selectedItem, index) => {
-                        console.log(selectedItem, index);
+                    onSelect={(selectedItem) => {
                         setFrequency(selectedItem);
                     }}
                     renderDropdownIcon={isOpened => {

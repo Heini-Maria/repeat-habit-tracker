@@ -6,17 +6,17 @@ export default function Header() {
     return(
         <View style={styles.header}>
             <Image style={styles.logo} source={require('../../assets/Images/logo.png')}/>
-            <Text style={styles.text}>My Habit List</Text>
+            <Text style={styles.text}>Repeat</Text>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     header: {
-        flex: 1.5,
+        flex: 3,
         width: '100%',
         alignItems: 'center',
-        justifyContent: 'flext start',
+        justifyContent: 'flex-start',
         backgroundColor: '#9CBFDF',
         paddingTop: Constants.StatusBarHeight ,
         paddingBottom: 10,
@@ -32,15 +32,15 @@ const styles = StyleSheet.create({
         shadowRadius: 3.84,
 
         elevation: 5,   
-            },
-    text: {
-        fontSize: 20,
-        fontFamily: 'Anton',
-        color: '#463C33',
-        marginTop: 10,
-        position: 'relative',
-        left: '95%'
-    },
+        },
+        text: {
+            fontSize: 30,
+            fontFamily: 'Shrikhand',
+            color: '#463C33',
+            marginTop: 10,
+            position: 'relative',
+            left: '90%',
+        },
     logo: {
         marginTop: 100,
         width: 35,

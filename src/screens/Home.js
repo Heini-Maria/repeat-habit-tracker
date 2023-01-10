@@ -58,13 +58,13 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     body: {
-        flex: 7,
+        flex: 16,
         width: '100%',
         paddingTop: 30,
         backgroundColor: '#F3F3F4',   
     },
     addHabit: {
-        flex: 1,
+        flex: 2,
         display: 'block',
         width: '100%',
         padding: 15,

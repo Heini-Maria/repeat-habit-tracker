@@ -15,10 +15,34 @@ export default function HabitList ({ navigation, GlobalState }) {
         isVisible, setIsVisible
     } = GlobalState;
      
+    function dateCheck (habitList) {
+    for (let i= 0; i < habitList.length; i++) {
+            let value = habitList[i]
+            let created = value.created;
+            let rightNow = Date.now();
+            let oneDay = created + 1000 * 60 * 60 *24;
+            let test = created + 1000 * 60;
+            let oneWeek = created + 1000 * 60 * 60 *24 *7;
+            let oneMonth = created + 1000 * 60 * 60 *24 *30;
+        if(value.frequency === 'day' && rightNow > oneDay || value.frequency === 'week' && created > oneWeek || value.frequency ==='month' && created > oneMonth) {
+            if(value.completed === false) {
+                value.completedCount = 0;    
+            }
+            value.created= Date.now();
+            value.times = 0;
+            value.completed =false;
+            setHabitList([...habitList]);
+        }
+        AsyncStorage.setItem("habits", JSON.stringify(habitList));
+    }
+    }
+    useEffect(() => {
+    dateCheck(habitList);
+    }, [])
     
+
     function handleDelete (item) {
         const index = habitList.indexOf(item);
-        console.log(index);
         habitList.splice(index, 1);
         const newHabits = [...habitList]
         AsyncStorage.setItem("habits", JSON.stringify(newHabits)).then(() => {
@@ -31,6 +55,7 @@ export default function HabitList ({ navigation, GlobalState }) {
         const complete = parseInt(item.goal) -1;
         if(times === complete) {
             item.completed = true;
+            item.completedCount++
             item.times += 1;
             setHabitList([...habitList]);
     }
@@ -38,10 +63,6 @@ export default function HabitList ({ navigation, GlobalState }) {
         item.completed = false;
         item.times += 1;
         setHabitList([...habitList]);
-        } else {
-            item.completed = false;
-            item.times = 0;
-            setHabitList([...habitList]);
         }
         AsyncStorage.setItem("habits", JSON.stringify(habitList));
         }

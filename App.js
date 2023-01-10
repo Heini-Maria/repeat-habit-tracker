@@ -27,7 +27,6 @@ export default function App() {
 
   // globalstate management
   const [habitList, setHabitList] = useState('');
-  const [value, setValue] = useState('')
   const [habit, setHabit] = useState('');
   const [goal, setGoal] = useState('');
   const [frequency, setFrequency] = useState('');
@@ -48,17 +47,7 @@ export default function App() {
   useEffect (() => {
     getHabitList();
   }, []);
-
-    console.warn(habitList);
   
-  
-
- 
- 
-  
-
-
-
   const GlobalState = {
     habitList, setHabitList,
     habit, setHabit,
