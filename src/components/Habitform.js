@@ -1,17 +1,19 @@
-import React, { useEffect, useState, useRef } from "react"
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, FlatList, Switch, Image} from 'react-native';
+import React, { useState, useRef } from "react"
+import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
 import Modal from 'react-native-modal';
 import SelectDropdown from "react-native-select-dropdown";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import uuid from 'react-native-uuid';
 
-
-
 export default function Habitform ({ GlobalState, isVisible, setIsVisible }) {
-    const {habitList, setHabitList, habit, setHabit, goal, setGoal, frequency, setFrequency,} = GlobalState;
+    const {habitList, setHabitList, 
+            habit, setHabit, 
+            goal, setGoal, 
+            frequency, setFrequency,
+        } = GlobalState;
     const goals = ['1', '2', '3', '4', '5', '6', '7'];
-    const per = ['day', 'week', 'month']
+    const per = ['day', 'week', 'month'];
     const dropdownRef = useRef();
     const [habitError, setHabitError] = useState('');
 
@@ -26,80 +28,73 @@ export default function Habitform ({ GlobalState, isVisible, setIsVisible }) {
         const regex = /^[a-zA-z\s]+$/;
         let isValid = regex.test(habit);
         if(isValid && goal !== '' && frequency !== '') {
-        const newhabits = [ ...habitList, {
-            id: id, 
-            habit: habit, 
-            times: 0, 
-            goal: goal, 
-            frequency: frequency, 
-            completed: false,
-            completedCount: 0,
-            created: startDate,
-        }]    
-        AsyncStorage.setItem("habits", JSON.stringify(newhabits)).then(() => {
-            setHabitList(newhabits);
-            setHabit('');
-            setGoal('');
-            setFrequency('')
-            dropdownRef.current.reset();
+            const newhabits = [ ...habitList, {
+                id: id, 
+                habit: habit, 
+                times: 0, 
+                goal: goal, 
+                frequency: frequency, 
+                completed: false,
+                completedCount: 0,
+                created: startDate,
+            }]    
+            AsyncStorage.setItem("habits", JSON.stringify(newhabits)).then(() => {
+                setHabitList(newhabits);
+                setHabit('');
+                setGoal('');
+                setFrequency('')
+                dropdownRef.current.reset();
+                setIsVisible(!isVisible);
+                setHabitError('');
+            });  
+        } else if (habit === '' && goal === ''){
             setIsVisible(!isVisible);
-            setHabitError('');
-        });
-        
-    } else if (habit === '' && goal === ''){
-        setIsVisible(!isVisible);
-    } else if (habit !== '' && !isValid) {
-        setHabitError('Habit should contain only letters!');
-    } else {
-        setHabitError('Please fill all fields below');
-    }
+        } else if (habit !== '' && !isValid) {
+            setHabitError('Habit should contain only letters!');
+        } else {
+            setHabitError('Please fill all fields below');
+        }
     }
 
     return (
            <View style={styles.inputs}  >
                 <Modal isVisible={isVisible}
                       style={styles.modal}  >
-                <Text style={styles.error}>{habitError}</Text>
-                <TextInput
-                    style={styles.input}
-                    onChangeText={handleChange}
-                    value={habit}
-                    keyboardType= 'email-address'
-                    placeholder= "habit to add..."
-                    maxLength={20}
-                />
-                <SelectDropdown
-                    data= {goals}
-                    ref= {dropdownRef}
-                    defaultButtonText= {'select # of times'}
-                    buttonTextStyle ={styles.dropdownText}
-                    buttonStyle={styles.dropdown}
-                    onSelect={(selectedItem) => {
-                        setGoal(selectedItem);
-                    }}
-                    renderDropdownIcon={isOpened => {
-                        return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#463C33'} size={12} />;
-                      }}
-                />
-                <SelectDropdown
-                    data= {per}
-                    ref= {dropdownRef}
-                    defaultButtonText= {'select timeframe'}
-                    buttonTextStyle ={styles.dropdownText}
-                    buttonStyle={styles.dropdown}
-                    onSelect={(selectedItem) => {
-                        setFrequency(selectedItem);
-                    }}
-                    renderDropdownIcon={isOpened => {
-                        return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#463C33'} size={12} />;
-                      }}
-                />
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={handleSaveHabit}
-                >
-                    <FontAwesome name= 'plus' color={'#F3F3F4'} size={20} />
-                </TouchableOpacity>
+                    <Text style={styles.error}>{habitError}</Text>
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={handleChange}
+                        value={habit}
+                        keyboardType= 'email-address'
+                        placeholder= "habit to add..."
+                        maxLength={20} />
+                    <SelectDropdown
+                        data= {goals}
+                        ref= {dropdownRef}
+                        defaultButtonText= {'select # of times'}
+                        buttonTextStyle ={styles.dropdownText}
+                        buttonStyle={styles.dropdown}
+                        onSelect={(selectedItem) => {
+                            setGoal(selectedItem);
+                        }}
+                        renderDropdownIcon={isOpened => {
+                            return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#463C33'} size={12} />;
+                        }} />
+                    <SelectDropdown
+                        data= {per}
+                        ref= {dropdownRef}
+                        defaultButtonText= {'select timeframe'}
+                        buttonTextStyle ={styles.dropdownText}
+                        buttonStyle={styles.dropdown}
+                        onSelect={(selectedItem) => { setFrequency(selectedItem); }}
+                        renderDropdownIcon={isOpened => {
+                            return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#463C33'} size={12} />;
+                        }} />
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={handleSaveHabit} >
+                        <FontAwesome name= 'plus' color={'#F3F3F4'} size={20} />
+                    </TouchableOpacity>
                 </Modal>
         </View>
     )
@@ -111,17 +106,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#F3F3F4',
         padding: 15,
         flexWrap: 'wrap',
-
-    },
-    text: {
-        fontFamily: 'Inter',
-        marginBottom: 20,
-        fontSize: 20,
-        textAlign: 'left',
-        padding: 10,
-        color: '#463C33',
-        backgroundColor: 'rgba(156,191,223, 0.9)'
-     
     },
     input: {
         backgroundColor: 'white',
@@ -162,5 +146,4 @@ const styles = StyleSheet.create({
         fontFamily: 'Inter',
         fontSize: 18,
     }
-
 })

@@ -1,7 +1,6 @@
 import { StyleSheet, View, Text, Image } from "react-native";
 import Constants  from "expo-constants";
 
-
 export default function Header() {
     return(
         <View style={styles.header}>
@@ -30,17 +29,16 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-
         elevation: 5,   
         },
-        text: {
-            fontSize: 30,
-            fontFamily: 'Shrikhand',
-            color: '#463C33',
-            marginTop: 10,
-            position: 'relative',
-            left: '90%',
-        },
+    text: {
+        fontSize: 30,
+        fontFamily: 'Shrikhand',
+        color: '#463C33',
+        marginTop: 10,
+        position: 'relative',
+        left: '90%',
+    },
     logo: {
         marginTop: 100,
         width: 35,

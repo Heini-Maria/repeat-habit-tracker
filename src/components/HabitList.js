@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react"
+import React, { useEffect } from "react"
 import { StyleSheet, View, Text, TouchableOpacity, FlatList} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -6,14 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import ChosenHabit from "../screens/ChosenHabit";
 
 export default function HabitList ({ navigation, GlobalState }) {
-    const {habitList, setHabitList, 
-        habit, setHabit, 
-        chosenHabit, setChosenHabit, 
-        goal, setGoal,
-        frequency, setFrequency,
-        completed, setCompleted,
-        isVisible, setIsVisible
-    } = GlobalState;
+    const {habitList, setHabitList, setChosenHabit } = GlobalState;
      
     function dateCheck (habitList) {
     for (let i= 0; i < habitList.length; i++) {
@@ -34,21 +27,22 @@ export default function HabitList ({ navigation, GlobalState }) {
             setHabitList([...habitList]);
         }
         AsyncStorage.setItem("habits", JSON.stringify(habitList));
+        }
     }
-    }
+
     useEffect(() => {
     dateCheck(habitList);
     }, [])
     
-
-    function handleDelete (item) {
+    const handleDelete = (item) => {
         const index = habitList.indexOf(item);
         habitList.splice(index, 1);
         const newHabits = [...habitList]
         AsyncStorage.setItem("habits", JSON.stringify(newHabits)).then(() => {
         setHabitList(newHabits);
-    })
-}
+        })
+    }
+
     const handleCheck = (item) => {
         const goal = parseInt(item.goal);
         const times = parseInt(item.times);
@@ -58,37 +52,36 @@ export default function HabitList ({ navigation, GlobalState }) {
             item.completedCount++
             item.times += 1;
             setHabitList([...habitList]);
-    }
+        }
         else if(times < goal){
         item.completed = false;
         item.times += 1;
         setHabitList([...habitList]);
         }
         AsyncStorage.setItem("habits", JSON.stringify(habitList));
-        }
+    }
 
     const renderItem = ({ item}) => {
         return (
         <View style={styles.habit}>
-        <TouchableOpacity
-            
-            onPress={() => handleChooseHabit(item)}
-        >
-            <Text
-             style={styles.habitText}   
-            >{item.habit} </Text>
-            
-            {item.completed ? <Text style ={styles.completed}>Completed</Text> : <Text style ={styles.habitGoal}>{item.times} / {item.goal} per {item.frequency}</Text>}
-            </TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => handleChooseHabit(item)}>
+                <Text style={styles.habitText} >
+                    {item.habit} 
+                </Text>
+                {item.completed ? 
+                <Text style ={styles.completed}>Completed</Text> 
+                : <Text style ={styles.habitGoal}>{item.times} / {item.goal} per {item.frequency}</Text>}
+                </TouchableOpacity>
             <View style={styles.icons}>
-            <TouchableOpacity style={styles.check} onPress={() => handleCheck(item)} >
-                <FontAwesome name='check' color={'#ABC270'} size={30} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => handleDelete(item)}>
-                <FontAwesome name='trash' color={'#463C33'} size={25}/>
-            </TouchableOpacity>
+                <TouchableOpacity style={styles.check} onPress={() => handleCheck(item)} >
+                    <FontAwesome name='check' color={'#ABC270'} size={30} />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => handleDelete(item)}>
+                    <FontAwesome name='trash' color={'#463C33'} size={25}/>
+                </TouchableOpacity>
             </View>
-            </View>
+        </View>
         )
     }
 
@@ -102,10 +95,10 @@ export default function HabitList ({ navigation, GlobalState }) {
                     data={habitList}
                     renderItem={renderItem}
                     keyExtractor={item => item.id}
-                />
-           
+                />     
     )
 }
+
 const styles = StyleSheet.create({
     habit: {
         backgroundColor: 'white',
@@ -123,8 +116,7 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.23,
         shadowRadius: 2.62,
-
-elevation: 4,
+        elevation: 4,
     },
     habitText: {
         fontFamily: 'Amaranth',

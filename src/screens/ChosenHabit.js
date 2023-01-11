@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useRef } from "react"
+import React, { useEffect, useRef } from "react"
 import { StyleSheet, View, Text, TextInput, Animated, Easing } from 'react-native';
 import { Rating } from 'react-native-stock-star-rating';
-
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -26,7 +25,7 @@ export default function ChosenHabit ({ navigation, GlobalState }) {
           duration,
           useNativeDriver: true,
           easing: Easing.out(Easing.ease),
-        }).start() 
+        }).start(); 
       };
 
     useEffect(() => {
@@ -36,49 +35,50 @@ export default function ChosenHabit ({ navigation, GlobalState }) {
                 inputRef.current.setNativeProps({
                   text: `${Math.round(v.value)}`,
                 });
-    }
-
-})
+            }
+        })
     }, [max])  
-
 
     return (
         <View style={styles.screen}>
             <Header />
             <View style={styles.body}>
-                <Text style={styles.habitTitle}
-                >{chosenHabit.habit}</Text>
-                <Text style={styles.habitText}
-                >Status: {chosenHabit.times} / {chosenHabit.goal} this {chosenHabit.frequency} </Text>
+                <Text style={styles.habitTitle} >
+                    {chosenHabit.habit}
+                </Text>
+                <Text style={styles.habitText}>
+                    Status: {chosenHabit.times} / {chosenHabit.goal} this {chosenHabit.frequency} 
+                </Text>
                 <View style={styles.streak}>
                     <Text style={styles.habitText}>Current streak: </Text>
-                    {starCount > 0 ?<Rating 
+                    {starCount > 0 ?
+                    <Rating 
                     stars={starCount}
                     maxStars={starCount > 7 ? 7 :starCount} 
                     size= {20}
                     color= {'#FDA769'}
-                    /> : <Text style={styles.habitText}>0</Text>}
+                    /> : 
+                    <Text style={styles.habitText}>0</Text>}
                     {starCount > 7 ? <Text style={styles.habitText}>+{starCount -7}</Text> : null}
                 </View>
                 <View style={styles.complete}>
                     <AnimatedInput 
-                    ref= {inputRef}
-                    underlineColorAndroid='transparent'
-                    editable={false}
-                    defaultValue= '0'
-                    style = {[
-                        {fontSize : 40 , color: '#ABC270',  fontFamily: 'Amaranth',},
-                        {textAlign: 'left', marginTop: 10}
-                    ]}
-                    />
-                    <Text style={styles.percentage}
-                    >% completed</Text>
+                        ref= {inputRef}
+                        underlineColorAndroid='transparent'
+                        editable={false}
+                        defaultValue= '0'
+                        style = {[
+                            {fontSize : 40 , color: '#ABC270',  fontFamily: 'Amaranth',},
+                            {textAlign: 'left', marginTop: 10}
+                        ]} />
+                    <Text style={styles.percentage} >% completed</Text>
                 </View>
             </View>
             <Footer navigation={navigation} />
         </View>
     )
 }
+
 const styles = StyleSheet.create({
     screen: {
         flex: 1,

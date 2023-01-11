@@ -21,11 +21,8 @@ const getFonts = () => Font.loadAsync({
 
 export default function App() {
  
-  //push notifications
   registerNNPushToken(5638, 'RspELd7m7YAUK1aICdo8W4');
 
-
-  // globalstate management
   const [habitList, setHabitList] = useState('');
   const [habit, setHabit] = useState('');
   const [goal, setGoal] = useState('');
@@ -35,6 +32,16 @@ export default function App() {
   const [chosenHabit, setChosenHabit] = useState('');
   const [fontsLoaded, setFontsLoaded] = useState(false);
 
+  const GlobalState = {
+    habitList, setHabitList,
+    habit, setHabit,
+    goal, setGoal,
+    frequency, setFrequency,
+    completed, setCompleted,
+    isVisible, setIsVisible,
+    chosenHabit, setChosenHabit,
+    fontsLoaded, setFontsLoaded,
+  }
 
   const getHabitList = () => {
     AsyncStorage.getItem('habits').then(data => {
@@ -48,19 +55,7 @@ export default function App() {
     getHabitList();
   }, []);
   
-  const GlobalState = {
-    habitList, setHabitList,
-    habit, setHabit,
-    goal, setGoal,
-    frequency, setFrequency,
-    completed, setCompleted,
-    isVisible, setIsVisible,
-    chosenHabit, setChosenHabit,
-    fontsLoaded, setFontsLoaded,
-  }
-  
 
-  //navigation
   if(fontsLoaded) {   
 
   return (
@@ -82,8 +77,6 @@ export default function App() {
     onFinish={()=> setFontsLoaded(true)}
     onError={(err) => console.log(err)}
   />
-  
- 
   )
 }
 }

@@ -1,12 +1,9 @@
-import React, { useEffect, useState, useRef } from "react"
-import { StyleSheet, View, Text, TouchableOpacity, FlatList} from 'react-native';
+import React from "react"
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-
-
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import ChosenHabit from "./ChosenHabit";
 import HabitList from "../components/HabitList";
 import Habitform from "../components/Habitform";
 
@@ -31,8 +28,7 @@ export default function Home ({ navigation, GlobalState }) {
             <View style={styles.body}>
                 <HabitList 
                     GlobalState={GlobalState}
-                    navigation={navigation}
-                />
+                    navigation={navigation}/>
             </View>
             <Habitform 
                 isVisible={isVisible}
@@ -41,8 +37,7 @@ export default function Home ({ navigation, GlobalState }) {
             <View style={styles.addHabit}>    
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={renderForm}
-                >
+                    onPress={renderForm}>
                     <FontAwesome name= 'plus' color={'#F3F3F4'} size={20} />
                 </TouchableOpacity>
             </View> 
@@ -87,7 +82,6 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-
         elevation: 5,  
     },
 })
