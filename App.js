@@ -10,6 +10,7 @@ import Home from './src/screens/Home';
 import ChosenHabit from './src/screens/ChosenHabit';
 
 
+
 const Stack = createNativeStackNavigator();
 const getFonts = () => Font.loadAsync({
     'Amaranth': require('./assets/Fonts/Amaranth/Amaranth-Regular.ttf'),

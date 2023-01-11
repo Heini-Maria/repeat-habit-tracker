@@ -19,6 +19,7 @@ export default function Home ({ navigation, GlobalState }) {
     
     const renderForm  = () => {
         setIsVisible(!isVisible);
+        return isVisible;
     }
 
 
