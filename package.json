@@ -12,9 +12,13 @@
   "jest": {
     "preset": "jest-expo",
     "transformIgnorePatterns": [
-      "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg|native-notify)"
+      "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg|native-notify|@react-navigation/native-stack|@react-native-async-storage/async-storage|expo-app-loading|@react-navigation/native|expo-font)"
     ],
-    "setupFiles": ["./jestSetupFile.js"]
+    "setupFiles": ["./jestSetupFile.js"],
+    "moduleNameMapper": {
+      "axios": "axios/dist/node/axios.cjs"
+    },
+    "collectCoverage": true
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "~1.17.3",

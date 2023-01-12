@@ -5,6 +5,7 @@ export default function Footer({ navigation }) {
     return(
         <View style={styles.footer}>
             <Icon 
+                testID="home"
                 name='home'
                 size= {30}
                 color= "#463C33"

@@ -62,7 +62,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" options= {{headerShown: false}} >
+        <Stack.Screen data-testid="content" name="Home" options= {{headerShown: false}} >
           {props => <Home {...props} GlobalState = {GlobalState} />}
         </Stack.Screen>
         <Stack.Screen name="ChosenHabit" options= {{headerShown: false}} >

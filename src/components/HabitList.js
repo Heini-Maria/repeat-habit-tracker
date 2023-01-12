@@ -3,36 +3,38 @@ import { StyleSheet, View, Text, TouchableOpacity, FlatList} from 'react-native'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+
 import ChosenHabit from "../screens/ChosenHabit";
 
 export default function HabitList ({ navigation, GlobalState }) {
     const {habitList, setHabitList, setChosenHabit } = GlobalState;
      
-    function dateCheck (habitList) {
-    for (let i= 0; i < habitList.length; i++) {
-            let value = habitList[i]
-            let created = value.created;
-            let rightNow = Date.now();
-            let oneDay = created + 1000 * 60 * 60 *24;
-            let test = created + 1000 * 60;
-            let oneWeek = created + 1000 * 60 * 60 *24 *7;
-            let oneMonth = created + 1000 * 60 * 60 *24 *30;
-        if(value.frequency === 'day' && rightNow > oneDay || value.frequency === 'week' && created > oneWeek || value.frequency ==='month' && created > oneMonth) {
-            if(value.completed === false) {
-                value.completedCount = 0;    
+   function dateCheck (habitList) {
+        for (let i= 0; i < habitList.length; i++) {
+                let value = habitList[i]
+                let created = value.created;
+                let rightNow = Date.now();
+                let oneDay = created + 1000 * 60 * 60 *24;
+                let test = created + 1000 * 60;
+                let oneWeek = created + 1000 * 60 * 60 *24 *7;
+                let oneMonth = created + 1000 * 60 * 60 *24 *30;
+            if(value.frequency === 'day' && rightNow > oneDay || value.frequency === 'week' && created > oneWeek || value.frequency ==='month' && created > oneMonth) {
+                if(value.completed === false) {
+                    value.completedCount = 0;    
+                }
+                value.created= Date.now();
+                value.times = 0;
+                value.completed =false;
+                setHabitList([...habitList]);
             }
-            value.created= Date.now();
-            value.times = 0;
-            value.completed =false;
-            setHabitList([...habitList]);
-        }
-        AsyncStorage.setItem("habits", JSON.stringify(habitList));
+            AsyncStorage.setItem("habits", JSON.stringify(habitList));
         }
     }
-
+ 
     useEffect(() => {
     dateCheck(habitList);
     }, [])
+    
     
     const handleDelete = (item) => {
         const index = habitList.indexOf(item);
@@ -65,6 +67,7 @@ export default function HabitList ({ navigation, GlobalState }) {
         return (
         <View style={styles.habit}>
             <TouchableOpacity
+                testId='Habit'
                 onPress={() => handleChooseHabit(item)}>
                 <Text style={styles.habitText} >
                     {item.habit} 
