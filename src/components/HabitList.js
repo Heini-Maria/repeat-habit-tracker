@@ -9,7 +9,7 @@ import ChosenHabit from "../screens/ChosenHabit";
 export default function HabitList ({ navigation, GlobalState }) {
     const {habitList, setHabitList, setChosenHabit } = GlobalState;
      
-   function dateCheck (habitList) {
+   const dateCheck = (habitList) => {
         for (let i= 0; i < habitList.length; i++) {
                 let value = habitList[i]
                 let created = value.created;
