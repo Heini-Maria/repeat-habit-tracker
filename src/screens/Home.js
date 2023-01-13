@@ -8,12 +8,12 @@ import HabitList from "../components/HabitList";
 import Habitform from "../components/Habitform";
 
 export default function Home ({ navigation, GlobalState }) {
-    const {/* habitList, setHabitList, 
+    const {habitList, setHabitList, 
         habit, setHabit, 
         chosenHabit, setChosenHabit, 
         goal, setGoal,
         frequency, setFrequency,
-        completed, setCompleted, */
+        completed, setCompleted,
         isVisible, setIsVisible
     } = GlobalState;
     
