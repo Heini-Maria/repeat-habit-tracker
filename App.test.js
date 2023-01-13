@@ -1,14 +1,7 @@
-
 import 'react-native';
 import React from 'react';
 import App from './App';
-import  Home  from './src/screens/Home';
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
-import ChosenHabit from './src/screens/ChosenHabit';
-import {create, renderer, shallow} from 'react-test-renderer';
-import Habitform from './src/components/Habitform';
-import HabitList from './src/components/HabitList';
+import {create} from 'react-test-renderer';
 import Header from './src/components/Header';
 import Footer from './src/components/Footer';
 
