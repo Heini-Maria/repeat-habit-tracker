@@ -2,7 +2,7 @@
 
 Good habits are the key to success but building them might be a challenge. Repeat is a simple habit tracker that helps you to stick with the habits that make you the person you want to become. 🚀🚀✨
 
-This project was done as a final project in Codecademy Front-end Engineer Career path. The goal for the project was to build an application to that you are passionate about building. I wanted to learn few additional technologies so I decided to build it with React Native.
+This project was done as a final project in Codecademy Front-end Engineer Career path. The goal for the project was to build an application that you are passionate about building. I wanted to learn few additional technologies so I decided to build it with React Native.
 
 https://user-images.githubusercontent.com/115211431/212334872-2a12d1f4-b59d-473e-b19c-8c82a4c584b9.mov
 
