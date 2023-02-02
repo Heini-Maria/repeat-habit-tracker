@@ -7,14 +7,17 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint ."
   },
   "jest": {
     "preset": "jest-expo",
     "transformIgnorePatterns": [
       "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg|native-notify|@react-navigation/native-stack|@react-native-async-storage/async-storage|expo-app-loading|@react-navigation/native|expo-font)"
     ],
-    "setupFiles": ["./jestSetupFile.js"],
+    "setupFiles": [
+      "./jestSetupFile.js"
+    ],
     "moduleNameMapper": {
       "axios": "axios/dist/node/axios.cjs"
     },
@@ -28,6 +31,7 @@
     "expo-app-loading": "~2.1.1",
     "expo-constants": "~14.0.2",
     "expo-device": "~5.0.0",
+    "expo-font": "^11.0.1",
     "expo-notifications": "~0.17.0",
     "expo-status-bar": "~1.4.2",
     "jest": "^26.6.3",
@@ -48,7 +52,17 @@
     "react-test-renderer": "^18.1.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "eslint": "^8.33.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-n": "^15.6.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-native": "^4.0.0"
   },
   "private": true
 }

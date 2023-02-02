@@ -4,24 +4,19 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import registerNNPushToken from 'native-notify';
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
-import Home from './src/screens/Home';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Home from './src/screens/Home.js';
 import ChosenHabit from './src/screens/ChosenHabit';
-
-
 
 const Stack = createNativeStackNavigator();
 const getFonts = () => Font.loadAsync({
-    'Amaranth': require('./assets/Fonts/Amaranth/Amaranth-Regular.ttf'),
-    'Anton': require('./assets/Fonts/Anton/Anton-Regular.ttf'),
-    'Inter': require('./assets/Fonts/Inter/Inter-Regular.ttf'),
-    'Shrikhand': require('./assets/Fonts/Shrikhand/Shrikhand-Regular.ttf')
-  });
-
+  'Amaranth': require('./assets/Fonts/Amaranth/Amaranth-Regular.ttf'),
+  'Anton': require('./assets/Fonts/Anton/Anton-Regular.ttf'),
+  'Inter': require('./assets/Fonts/Inter/Inter-Regular.ttf'),
+  'Shrikhand': require('./assets/Fonts/Shrikhand/Shrikhand-Regular.ttf')
+});
 
 export default function App() {
- 
   registerNNPushToken(5638, 'RspELd7m7YAUK1aICdo8W4');
 
   const [habitList, setHabitList] = useState('');
@@ -34,51 +29,55 @@ export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
 
   const GlobalState = {
-    habitList, setHabitList,
-    habit, setHabit,
-    goal, setGoal,
-    frequency, setFrequency,
-    completed, setCompleted,
-    isVisible, setIsVisible,
-    chosenHabit, setChosenHabit,
-    fontsLoaded, setFontsLoaded,
-  }
+    habitList,
+    setHabitList,
+    habit,
+    setHabit,
+    goal,
+    setGoal,
+    frequency,
+    setFrequency,
+    completed,
+    setCompleted,
+    isVisible,
+    setIsVisible,
+    chosenHabit,
+    setChosenHabit,
+    fontsLoaded,
+    setFontsLoaded,
+  };
 
   const getHabitList = () => {
-    AsyncStorage.getItem('habits').then(data => {
-      if(data !== null) {
-        setHabitList(JSON.parse(data))
+    AsyncStorage.getItem('habits').then((data) => {
+      if (data !== null) {
+        setHabitList(JSON.parse(data));
       }
     }).catch((error) => console.log(error));
-  }
+  };
 
-  useEffect (() => {
+  useEffect(() => {
     getHabitList();
   }, []);
-  
 
-  if(fontsLoaded) {   
-
+  if (fontsLoaded) {
+    return (
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen data-testid="content" name="Home" options={{ headerShown: false }}>
+            { (props) => <Home {...props} GlobalState={GlobalState} />}
+          </Stack.Screen>
+          <Stack.Screen name="ChosenHabit" options={{ headerShown: false }}>
+            {(props) => <ChosenHabit {...props} GlobalState={GlobalState} />}
+          </Stack.Screen>
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  }
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen data-testid="content" name="Home" options= {{headerShown: false}} >
-          {props => <Home {...props} GlobalState = {GlobalState} />}
-        </Stack.Screen>
-        <Stack.Screen name="ChosenHabit" options= {{headerShown: false}} >
-          {props => <ChosenHabit {...props} GlobalState = {GlobalState} />}
-        </Stack.Screen>
-      </Stack.Navigator>
-    </NavigationContainer>
+    <AppLoading
+      startAsync={getFonts}
+      onFinish={() => setFontsLoaded(true)}
+      onError={(err) => console.log(err)}
+    />
   );
-} else {
-  return (
-  <AppLoading
-    startAsync= {getFonts}
-    onFinish={()=> setFontsLoaded(true)}
-    onError={(err) => console.log(err)}
-  />
-  )
 }
-}
-
