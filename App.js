@@ -5,7 +5,7 @@ import registerNNPushToken from 'native-notify';
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Home from './src/screens/Home.js';
+import Home from './src/screens/Home';
 import ChosenHabit from './src/screens/ChosenHabit';
 
 const Stack = createNativeStackNavigator();
