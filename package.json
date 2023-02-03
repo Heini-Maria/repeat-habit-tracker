@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
+    "preinstall": "npx npm-force-resolutions",
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
@@ -62,7 +63,11 @@
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-native": "^4.0.0"
+    "eslint-plugin-react-native": "^4.0.0",
+    "ua-parser-js": "^1.0.33"
   },
-  "private": true
+  "private": true,
+  "resolutions": {
+    "ua-parser-js": "^1.0.33"
+  }
 }
