@@ -10,61 +10,6 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ChosenHabit from "../screens/ChosenHabit";
 
-const styles = StyleSheet.create({
-  habit: {
-    backgroundColor: 'white',
-    flexDirection: 'row',
-    height: 60,
-    padding: 10,
-    paddingRight: 30,
-    margin: 10,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.23,
-    shadowRadius: 2.62,
-    elevation: 4,
-  },
-  habitText: {
-    fontFamily: 'Amaranth',
-    fontSize: 18,
-    color: '#463C33',
-  },
-  habitGoal: {
-    fontFamily: 'Inter',
-    fontSize: 16,
-    color: '#463C33',
-    marginTop: 5,
-  },
-  completed: {
-    fontFamily: 'Inter',
-    fontSize: 16,
-    color: '#FDA769',
-    marginTop: 5,
-  },
-  icons: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  check: {
-    marginRight: 20,
-  },
-  button: {
-    backgroundColor: '#FDA769',
-    height: 50,
-    width: 50,
-    marginRight: 40,
-    padding: 15,
-    borderRadius: '50%',
-    alignItems: 'center',
-    alignSelf: 'flex-start',
-  },
-});
-
 export default function HabitList({ navigation, GlobalState }) {
   const { habitList, setHabitList, setChosenHabit } = GlobalState;
   const dateCheck = (habitList) => {
@@ -158,3 +103,58 @@ export default function HabitList({ navigation, GlobalState }) {
     />
   );
 }
+
+const styles = StyleSheet.create({
+  habit: {
+    backgroundColor: 'white',
+    flexDirection: 'row',
+    height: 60,
+    padding: 10,
+    paddingRight: 30,
+    margin: 10,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+    elevation: 4,
+  },
+  habitText: {
+    fontFamily: 'Amaranth',
+    fontSize: 18,
+    color: '#463C33',
+  },
+  habitGoal: {
+    fontFamily: 'Inter',
+    fontSize: 16,
+    color: '#463C33',
+    marginTop: 5,
+  },
+  completed: {
+    fontFamily: 'Inter',
+    fontSize: 16,
+    color: '#FDA769',
+    marginTop: 5,
+  },
+  icons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  check: {
+    marginRight: 20,
+  },
+  button: {
+    backgroundColor: '#FDA769',
+    height: 50,
+    width: 50,
+    marginRight: 40,
+    padding: 15,
+    borderRadius: '50%',
+    alignItems: 'center',
+    alignSelf: 'flex-start',
+  },
+});

@@ -14,50 +14,6 @@ import Footer from '../components/Footer';
 
 const AnimatedInput = Animated.createAnimatedComponent(TextInput);
 
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  body: {
-    flex: 18,
-    width: '100%',
-    paddingTop: 200,
-    backgroundColor: '#F3F3F4',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-  },
-  habitTitle: {
-    fontFamily: 'Anton',
-    fontSize: 40,
-    marginBottom: 30,
-    color: '#463C33'
-  },
-  habitText: {
-    fontFamily: 'Amaranth',
-    fontSize: 20,
-    marginTop: 5,
-    color: '#463C33',
-  },
-  streak: {
-    flexDirection: 'row',
-    alignItems: 'baseline',
-  },
-  complete: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  percentage: {
-    marginTop: 10,
-    marginLeft: 10,
-    fontFamily: 'Amaranth',
-    fontSize: 40,
-    color: '#ABC270',
-  },
-});
-
 export default function ChosenHabit({ navigation, GlobalState }) {
   const { chosenHabit } = GlobalState;
   const times = parseInt(chosenHabit.times, 10);
@@ -77,7 +33,7 @@ export default function ChosenHabit({ navigation, GlobalState }) {
       useNativeDriver: true,
       easing: Easing.out(Easing.ease),
     }).start();
-  }
+  };
 
   useEffect(() => {
     animation(percentage);
@@ -132,3 +88,47 @@ export default function ChosenHabit({ navigation, GlobalState }) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  body: {
+    flex: 18,
+    width: '100%',
+    paddingTop: 200,
+    backgroundColor: '#F3F3F4',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  habitTitle: {
+    fontFamily: 'Anton',
+    fontSize: 40,
+    marginBottom: 30,
+    color: '#463C33',
+  },
+  habitText: {
+    fontFamily: 'Amaranth',
+    fontSize: 20,
+    marginTop: 5,
+    color: '#463C33',
+  },
+  streak: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
+  },
+  complete: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  percentage: {
+    marginTop: 10,
+    marginLeft: 10,
+    fontFamily: 'Amaranth',
+    fontSize: 40,
+    color: '#ABC270',
+  },
+});

@@ -7,6 +7,49 @@ import Footer from '../components/Footer';
 import HabitList from '../components/HabitList';
 import Habitform from '../components/Habitform';
 
+export default function Home({ navigation, GlobalState }) {
+  const {
+    habitList, setHabitList,
+    habit, setHabit,
+    chosenHabit, setChosenHabit,
+    goal, setGoal,
+    frequency, setFrequency,
+    completed, setCompleted,
+    isVisible, setIsVisible,
+  } = GlobalState;
+
+  const renderForm = () => {
+    setIsVisible(!isVisible);
+    return isVisible;
+  };
+
+  return (
+    <View style={styles.screen}>
+      <Header />
+      <View style={styles.body}>
+        <HabitList
+          GlobalState={GlobalState}
+          navigation={navigation}
+        />
+      </View>
+      <Habitform
+        isVisible={isVisible}
+        setIsVisible={setIsVisible}
+        GlobalState={GlobalState}
+      />
+      <View style={styles.addHabit}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={renderForm}
+        >
+          <FontAwesome name="plus" color={'#F3F3F4'} size={20} />
+        </TouchableOpacity>
+      </View>
+      <Footer navigation={navigation} />
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
@@ -47,45 +90,3 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
 });
-
-export default function Home({ navigation, GlobalState }) {
-  const {
-    habitList, setHabitList,
-    habit, setHabit,
-    chosenHabit, setChosenHabit,
-    goal, setGoal,
-    frequency, setFrequency,
-    completed, setCompleted,
-    isVisible, setIsVisible
-  } = GlobalState;
-
-  const renderForm = () => {
-    setIsVisible(!isVisible);
-    return isVisible;
-  };
-
-  return (
-    <View style={styles.screen}>
-      <Header />
-      <View style={styles.body}>
-        <HabitList
-          GlobalState={GlobalState}
-          navigation={navigation}/>
-      </View>
-      <Habitform
-        isVisible={isVisible}
-        setIsVisible={setIsVisible}
-        GlobalState={GlobalState} 
-      />
-      <View style={styles.addHabit}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={renderForm}
-        >
-          <FontAwesome name="plus" color={'#F3F3F4'} size={20} />
-        </TouchableOpacity>
-      </View>
-      <Footer navigation={navigation} />
-    </View>
-  );
-}

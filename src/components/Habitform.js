@@ -12,55 +12,6 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import uuid from 'react-native-uuid';
 
-const styles = StyleSheet.create({
-  inputs: {
-    flex: 3,
-    width: '100%',
-    backgroundColor: '#F3F3F4',
-    padding: 15,
-    flexWrap: 'wrap',
-  },
-  input: {
-    backgroundColor: 'white',
-    padding: 15,
-    fontSize: 16,
-    width: '90%',
-    borderRadius: 12,
-    fontFamily: 'Amaranth',
-  },
-  dropdown: {
-    backgroundColor: 'white',
-    width: '45%',
-    display: 'inline-block',
-    marginTop: 10,
-    padding: 15,
-    borderRadius: 12,
-  },
-  dropdownText: {
-    color: '#463C33',
-    fontSize: 16,
-    fontFamily: 'Amaranth',
-    textAlign: 'left',
-  },
-  button: {
-    backgroundColor: '#FDA769',
-    height: 50,
-    width: 50,
-    marginRight: 30,
-    padding: 15,
-    borderRadius: '50%',
-    alignItems: 'center',
-    alignSelf: 'flex-end',
-  },
-  error: {
-    color: 'tomato',
-    marginLeft: 10,
-    marginBottom: 5,
-    fontFamily: 'Inter',
-    fontSize: 18,
-  },
-});
-
 export default function Habitform({ GlobalState, isVisible, setIsVisible }) {
   const {
     habitList, setHabitList,
@@ -136,8 +87,8 @@ export default function Habitform({ GlobalState, isVisible, setIsVisible }) {
           onSelect={(selectedItem) => {
             setGoal(selectedItem);
           }}
-          renderDropdownIcon={(isOpened) => { 
-            return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#463C33'} size={12} />;
+          renderDropdownIcon={(isOpened) => {
+            <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#463C33'} size={12} />;
           }}
         />
         <SelectDropdown
@@ -148,7 +99,7 @@ export default function Habitform({ GlobalState, isVisible, setIsVisible }) {
           buttonStyle={styles.dropdown}
           onSelect={(selectedItem) => { setFrequency(selectedItem); }}
           renderDropdownIcon={(isOpened) => {
-            return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#463C33'} size={12} />;
+            <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#463C33'} size={12} />;
           }}
         />
         <TouchableOpacity
@@ -161,3 +112,52 @@ export default function Habitform({ GlobalState, isVisible, setIsVisible }) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  inputs: {
+    flex: 3,
+    width: '100%',
+    backgroundColor: '#F3F3F4',
+    padding: 15,
+    flexWrap: 'wrap',
+  },
+  input: {
+    backgroundColor: 'white',
+    padding: 15,
+    fontSize: 16,
+    width: '90%',
+    borderRadius: 12,
+    fontFamily: 'Amaranth',
+  },
+  dropdown: {
+    backgroundColor: 'white',
+    width: '45%',
+    display: 'inline-block',
+    marginTop: 10,
+    padding: 15,
+    borderRadius: 12,
+  },
+  dropdownText: {
+    color: '#463C33',
+    fontSize: 16,
+    fontFamily: 'Amaranth',
+    textAlign: 'left',
+  },
+  button: {
+    backgroundColor: '#FDA769',
+    height: 50,
+    width: 50,
+    marginRight: 30,
+    padding: 15,
+    borderRadius: '50%',
+    alignItems: 'center',
+    alignSelf: 'flex-end',
+  },
+  error: {
+    color: 'tomato',
+    marginLeft: 10,
+    marginBottom: 5,
+    fontFamily: 'Inter',
+    fontSize: 18,
+  },
+});

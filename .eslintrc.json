@@ -12,7 +12,10 @@
     "overrides": [
     ],
     "parserOptions": {
-        "ecmaVersion": "latest"
+        "ecmaVersion": "latest",
+        "ecmaFeatures": {
+            "jsx": true
+        }
     },
     "plugins": [
         "react",
@@ -20,6 +23,9 @@
     ],
     "rules": {
         "linebreak-style": 0,
-        "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx", ".js", ".jsx"] }]
+        "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx", ".js", ".jsx"] }],
+        "no-use-before-define": 0,
+        "react/prop-types": 0,
+        "react/react-in-jsx-scope": 0
     }
 }

@@ -7,6 +7,15 @@ import {
 } from 'react-native';
 import Constants from 'expo-constants';
 
+export default function Header() {
+  return (
+    <View style={styles.header}>
+      <Image style={styles.logo} source={require('../../assets/Images/logo.png')}/>
+      <Text style={styles.text}>Repeat</Text>
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
   header: {
     flex: 3,
@@ -14,7 +23,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
     backgroundColor: '#9CBFDF',
-    paddingTop: Constants.StatusBarHeight ,
+    paddingTop: Constants.StatusBarHeight,
     paddingBottom: 10,
     zIndex: 5,
     flexWrap: 'wrap',
@@ -43,12 +52,3 @@ const styles = StyleSheet.create({
     marginLeft: 36,
   },
 });
-
-export default function Header() {
-  return (
-    <View style={styles.header}>
-      <Image style={styles.logo} source={require('../../assets/Images/logo.png')}/>
-      <Text style={styles.text}>Repeat</Text>
-    </View>
-  );
-}
